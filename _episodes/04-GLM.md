@@ -1,7 +1,7 @@
 ---
-title: "Regression"
-teaching: 45
-exercises: 30
+title: "General linear models (GLM)"
+teaching: 20
+exercises: 0
 questions:
 - "How can I make linear regression models from data?"
 - "How can I use logarithmic regression to work with non-linear data?"
