@@ -24,11 +24,19 @@ In this course, we will briefly explore **Linear Regression**, a statistical met
 
 <img src="https://latex.codecogs.com/svg.image?&space;y=\beta_{0}&plus;\sum\beta_{i}\chi_{i}&plus;\epsilon_{i}" title=" y=\beta_{0}+\sum\beta_{i}\chi_{i}+\epsilon_{i}" />
 
-where \beta represents linear parameter estimates to be computed and \epsilon represents the error terms.
+where &beta; represents linear parameter estimates to be computed and &epsilon; represents the error terms.
+
+There are several types of linear regression:
+
+> Simple linear regression: models using only one predictor
+> Multiple linear regression: models using multiple predictors
+> Multivariate linear regression: models for multiple response variables
+
+
 
 # What are GLMs
 
-A Generalized Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
+A Generalised Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
 
 
 We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
