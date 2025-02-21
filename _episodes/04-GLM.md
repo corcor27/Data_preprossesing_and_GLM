@@ -23,6 +23,8 @@ Linear models represent a continuous response variable as a function of one or m
 In this course, we will briefly explore **Linear Regression**, a statistical method used to construct a linear model. This model defines the relationship between a dependent variable \$y$ (also known as the response) and one or more independent variables \$X_i$ (referred to as predictors). There our model takes the form of the following equation:
 
 $$ y = \beta_0 + \sum \beta_i X_i + \epsilon_i $$
+y<sub> = &beta;<sub>o</sub> x + &sum;&beta;<sub>i</sub>x<sub>i</sub> + &epsilon;<sub>i</sub>
+
 
 where \beta represents linear parameter estimates to be computed and \epsilon represents the error terms.
 
