@@ -20,13 +20,11 @@ keypoints:
 
 Linear models represent a continuous response variable as a function of one or more predictor variables. They are useful for understanding and predicting the behavior of complex systems, as well as analysing experimental, financial, and biological data. 
 
-In this course, we will briefly explore **Linear Regression**, a statistical method used to construct a linear model. This model defines the relationship between a dependent variable $`y`$ (also known as the response) and one or more independent variables $`X_{i}`$ (referred to as predictors). There our model takes the form of the following equation:
+In this course, we will briefly explore **Linear Regression**, a statistical method used to construct a linear model. This model defines the relationship between a dependent variable $y$ (also known as the response) and one or more independent variables $X_i$ (referred to as predictors). There our model takes the form of the following equation:
 
-$$
-y = m_{i}X_{i} + c + \(\epsilon\)_{i}
-$$
+$$ y = \beta_0 + \sum \beta_i X_i + \epsilon_i $$
 
-
+where \beta represents linear parameter estimates to be computed and \epsilon represents the error terms.
 
 # What are GLMs
 
