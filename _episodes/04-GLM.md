@@ -1,22 +1,37 @@
 ---
-title: "General linear models (GLM)"
+title: "Generalised linear models (GLM)"
 teaching: 20
 exercises: 0
 questions:
-- "How can I make linear regression models from data?"
-- "How can I use logarithmic regression to work with non-linear data?"
+- "What are GLMs?"
+- "How do we assess such methods?"
+- "what statistical tests can we use"
 objectives:
-- "Learn how to use linear regression to produce a model from data."
-- "Learn how to model non-linear data using a logarithmic."
-- "Learn how to measure the error between the original data and a linear model."
+- "Learn how to use GLMs."
+- "Learn how to asses the quality of the fit of our model."
+- "Learn what statistical test are relevant to GLM and how to apply them."
 keypoints:
-- "We can model linear data using a linear or least squares regression."
-- "A linear regression model can be used to predict future values."
-- "We should split up our training dataset and use part of it to test the model."
-- "For non-linear data we can use logarithms to make the data linear."
+- "We can model linear data using GLM models."
+- "We learned how to assess the quality of fit of our model to the data."
+- "We learned to apply ANOVA to GLM and can interpret the results"
 ---
 
-# Linear regression
+# What are Linear models
+
+Linear models represent a continuous response variable as a function of one or more predictor variables. They are useful for understanding and predicting the behavior of complex systems, as well as analysing experimental, financial, and biological data. 
+
+In this course, we will briefly explore **Linear Regression**, a statistical method used to construct a linear model. This model defines the relationship between a dependent variable $`y`$ (also known as the response) and one or more independent variables $`X_{i}`$ (referred to as predictors). There our model takes the form of the following equation:
+
+$$
+y = m_{i}X_{i} + c + \(\epsilon\)_{i}
+$$
+
+
+
+# What are GLMs
+
+A Generalized Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
+
 
 We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
 
