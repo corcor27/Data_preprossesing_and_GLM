@@ -103,14 +103,18 @@ Its a good idea to check if our data takes the form of a normal distribution, to
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/speed_box_plots.png)
+>![graph of the test regression data](../fig/speed_density_plot.png)
 {: .output}
 
 ### Correlation
 
-Correlation is a statistical measure that suggests the level of linear dependence between two variables, that occur in pair – just like what we have here in speed and dist. Correlation can take values between -1 to +1. If we observe for every instance where speed increases, the distance also increases along with it, then there is a high positive correlation between them and therefore the correlation between them will be closer to 1. The opposite is true for an inverse relationship, in which case, the correlation between the variables will be close to -1.
+Correlation is a statistical measure that indicates the degree of linear dependence between two paired variables, such as speed and dist in our dataset. It ranges from -1 to +1:
 
-A value closer to 0 suggests a weak relationship between the variables. A low correlation (-0.2 < x < 0.2) probably suggests that much of variation of the response variable (Y) is unexplained by the predictor (X), in which case, we should probably look for better explanatory variables.
+* A correlation close to +1 suggests a strong positive relationship, meaning that as speed increases, dist also tends to increase.
+* A correlation close to -1 indicates a strong negative relationship, where an increase in speed corresponds to a decrease in dist.
+* A correlation near 0 implies a weak or no linear relationship between the variables.
+
+If the correlation is low (between -0.2 and 0.2), it suggests that the predictor (X) explains little of the variation in the response variable (Y). In such cases, we may need to explore alternative explanatory variables for better predictions.
 
 ~~~
 > cor(cars$speed, cars$dist)  # calculate correlation between speed and distance 
@@ -124,14 +128,14 @@ A value closer to 0 suggests a weak relationship between the variables. A low co
 
 ## Building a linear model
 
-Now that we have seen the linear relationship pictorially in the scatter plot and by computing the correlation, lets see the syntax for building the linear model. The function used for building linear models is lm(). The lm() function takes in two main arguments, namely: 1. Formula 2. Data. The data is typically a data.frame and the formula is a object of class formula. But the most common convention is to write out the formula directly in place of the argument as written below.
+Now that we've visualized the linear relationship using a scatter plot and confirmed it by calculating the correlation, let's move on to building the linear model.
 
-# What are GLMs
+In R, we use the lm() function to create linear models. This function requires two main arguments:
 
-A Generalised Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
+* Formula – Defines the relationship between the response and predictor variables.
+* Data – A dataset (typically a data.frame) containing the variables.
 
-
-We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
+Although the formula can be stored as an object of class formula, it is most commonly written directly within the function call, as shown in the example below.
 
 ~~~
 > linearMod <- lm(dist ~ speed, data=cars)  # build linear regression model on full data
@@ -150,13 +154,25 @@ Coefficients:
 ~~~
 {: .output}
 
-Now that we have built the linear model, we also have established the relationship between the predictor and response in the form of a mathematical formula for Distance (dist) as a function for speed. For the above output, you can notice the ‘Coefficients’ part having two components: Intercept: -17.579, speed: 3.932 These are also called the beta coefficients. In other words,
+Now that we've built the linear model, we have defined the relationship between the predictor (speed) and the response (dist) in the form of a mathematical equation.
+
+From the model output, you’ll notice the Coefficients section, which consists of two components:
+
+* Intercept: -17.579
+* Speed: 3.932
+
+These values are known as beta coefficients, and they define the equation for Distance (dist) as a function of Speed (speed):
 dist = Intercept + (&beta; ∗ speed)
+Substituting the values:
 => dist = −17.579 + 3.932∗speed
 
 ## Linear regression diagnostics
 
-Now the linear model is built and we have a formula that we can use to predict the dist value if a corresponding speed is known. Is this enough to actually use this model? NO! Before using a regression model, you have to ensure that it is statistically significant. How do you ensure this? Lets begin by printing the summary statistics for linearMod.
+Now that we've built the linear model and derived a formula to predict dist based on a given speed, can we immediately start using it? Not yet!
+
+Before applying a regression model, we must first verify its statistical significance. But how do we do that?
+
+A good starting point is to examine the summary statistics of our model. Let’s print the summary of linearMod to evaluate its significance and performance.
 
 ~~~
 > summary(linearMod)  # model summary
@@ -187,19 +203,34 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12
 
 ## The p Value: Checking for statistical significance
 
-The summary statistics above tells us a number of things. One of them is the model p-Value (bottom last line) and the p-Value of individual predictor variables (extreme right column under ‘Coefficients’). The p-Values are very important because, We can consider a linear model to be statistically significant only when both these p-Values are less that the pre-determined statistical significance level, which is ideally 0.05. This is visually interpreted by the significance stars at the end of the row. The more the stars beside the variable’s p-Value, the more significant the variable.
-Null and alternate hypothesis
+The summary statistics provide valuable insights into our model's reliability. Two key aspects to examine are:
 
-When there is a p-value, there is a hull and alternative hypothesis associated with it. In Linear Regression, the Null Hypothesis is that the coefficients associated with the variables is equal to zero. The alternate hypothesis is that the coefficients are not equal to zero (i.e. there exists a relationship between the independent variable in question and the dependent variable).
-t-value
+* The model’s overall p-value (found in the last line of the output).
+* The p-values of individual predictor variables (located in the rightmost column under "Coefficients").
 
-We can interpret the t-value something like this. A larger t-value indicates that it is less likely that the coefficient is not equal to zero purely by chance. So, higher the t-value, the better.
+### Understanding p-values
 
-Pr(>|t|) or p-value is the probability that you get a t-value as high or higher than the observed value when the Null Hypothesis (the β coefficient is equal to zero or that there is no relationship) is true. So if the Pr(>|t|) is low, the coefficients are significant (significantly different from zero). If the Pr(>|t|) is high, the coefficients are not significant.
+P-values are crucial because a linear model is considered statistically significant only if both the model’s p-value and the predictor’s p-value are less than 0.05 (the standard significance level). This is visually represented by significance stars next to each variable—more stars indicate higher significance.
 
-What this means to us? when p Value is less than significance level (< 0.05), we can safely reject the null hypothesis that the co-efficient β of the predictor is zero. In our case, linearMod, both these p-Values are well below the 0.05 threshold, so we can conclude our model is indeed statistically significant.
+###Null and Alternative Hypotheses
 
-It is absolutely important for the model to be statistically significant before we can go ahead and use it to predict (or estimate) the dependent variable, otherwise, the confidence in predicted values from that model reduces and may be construed as an event of chance.
+Every p-value corresponds to a hypothesis test:
+
+* Null Hypothesis (H₀): The coefficient of the predictor is zero, meaning no relationship exists between the independent and dependent variable.
+* Alternative Hypothesis (H₁): The coefficient is not zero, indicating a significant relationship.
+
+### Interpreting the t-value
+
+The t-value measures how strongly a predictor variable influences the response variable:
+
+* A larger t-value suggests a lower probability that the coefficient is zero by chance, meaning the predictor is more significant.
+* The p-value (Pr(>|t|)) tells us the probability of obtaining such a high t-value under the null hypothesis. A low p-value (< 0.05) means the coefficient is significantly different from zero.
+
+### What This Means for Our Model
+
+In our case, both the model’s and the predictor’s p-values in linearMod are well below 0.05. This allows us to reject the null hypothesis and conclude that the predictor (speed) has a statistically significant relationship with dist.
+
+Ensuring statistical significance is critical before using a model for predictions—without it, our predictions may lack reliability and could simply be due to chance.
 
 ## How to calculate the t Statistic and p-Values?
 
@@ -257,9 +288,18 @@ For model comparison, the model with the lowest AIC and BIC score is preferred.
 
 ## Predicting Linear Models
 
-So far we have seen how to build a linear regression model using the whole dataset. If we build it that way, there is no way to tell how the model will perform with new data. So the preferred practice is to split your dataset into a 80:20 sample (training:test), then, build the model on the 80% sample and then use the model thus built to predict the dependent variable on test data.
+Up to this point, we've built a linear regression model using the entire dataset. However, this approach doesn’t allow us to assess how well the model will perform on new data.
 
-Doing it this way, we will have the model predicted values for the 20% data (test) as well as the actual (from the original dataset). By calculating accuracy measures (like min_max accuracy) and error rates (MAPE or MSE), we can find out the prediction accuracy of the model. Now, lets see how to actually do this..
+A better practice is to split the dataset into training (80%) and test (20%) subsets. The model is trained on the 80% sample, and then its performance is evaluated by predicting the dependent variable on the test data.
+
+By doing this, we obtain both:
+
+* Predicted values for the test data.
+* Actual values from the original dataset.
+
+We can then measure the model’s accuracy using metrics like Min-Max Accuracy and error rates such as MAPE (Mean Absolute Percentage Error) or MSE (Mean Squared Error). These help determine how well the model generalises to new data.
+
+Now, let's walk through the process of implementing this approach.
 ### Step 1: Create the training (development) and test (validation) data samples from original data.
 
 ~~~
@@ -293,8 +333,21 @@ Doing it this way, we will have the model predicted values for the 20% data (tes
 
 From the model summary, the model p value and predictor’s p value are less than the significance level, so we know we have a statistically significant model. Also, the R-Sq and Adj R-Sq are comparative to the original model built on full data.
 
+### Step 4: Lets explore what our line of best fit looks like
 
+~~~
+> plot(cars$speed, cars$dist, pch=21, main="Cars speed against distance", xlab="speed", ylab="distance")
+> abline(lm(dist ~ speed, data=cars)$coefficients, col="red")
+~~~
+{: .language-r}
 
+>![graph of the test regression data](../fig/speed_chart.png)
+{: .output}
 
+# What are GLMs
+
+A Generalised Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
+
+We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
 
 {% include links.md %}
