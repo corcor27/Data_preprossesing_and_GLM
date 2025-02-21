@@ -28,9 +28,9 @@ where &beta; represents linear parameter estimates to be computed and &epsilon; 
 
 There are several types of linear regression:
 
-> Simple linear regression: models using only one predictor
-> Multiple linear regression: models using multiple predictors
-> Multivariate linear regression: models for multiple response variables
+* Simple linear regression: models using only one predictor
+* Multiple linear regression: models using multiple predictors
+* Multivariate linear regression: models for multiple response variables
 
 
 
