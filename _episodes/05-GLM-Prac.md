@@ -81,6 +81,8 @@ Using the YERockfish data in the FSAdata library, let’s model the relationship
 > > 
 > > summary(binom.glm)
 > >
+> > AIC(binom.glm)
+> >
 > {: .solution}
 {: .challenge}
 

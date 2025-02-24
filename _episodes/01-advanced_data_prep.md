@@ -21,13 +21,13 @@ Data Frames are data displayed in a format as a table and are a powerful tool wh
 Data Frames can have different types of data inside it. While the first column can be character, the second and third can be numeric or logical. However, each column should have the same type of data.
 
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
 # Print the data frame
-> Data_Frame 
+Data_Frame 
 ~~~
 {: .language-r}
 
@@ -42,14 +42,14 @@ Data Frames can have different types of data inside it. While the first column c
 ### Summarising dataframes
 Use the summary() function to summarize the data from a Data Frame:
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
-> Data_Frame
+Data_Frame
 
-> summary(Data_Frame) 
+summary(Data_Frame) 
 ~~~
 {: .language-r}
 
@@ -67,30 +67,30 @@ Use the summary() function to summarize the data from a Data Frame:
 ### Accessing items in a dataframe
 We can use single brackets [ ], double brackets [[ ]] or $ to access columns from a data frame:
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
-> Data_Frame[1]
+Data_Frame[1]
 
-> Data_Frame[["Training"]]
+Data_Frame[["Training"]]
 
-> Data_Frame$Training 
+Data_Frame$Training 
 ~~~
 {: .language-r}
 
 ~~~
-> Data_Frame[1]
+Data_Frame[1]
   Training
 1 Strength
 2  Stamina
 3    Other
-> 
-> Data_Frame[["Training"]]
+
+Data_Frame[["Training"]]
 [1] "Strength" "Stamina"  "Other"   
-> 
-> Data_Frame$Training 
+
+Data_Frame$Training 
 [1] "Strength" "Stamina"  "Other"   
 ~~~
 {: .output}
@@ -98,16 +98,16 @@ We can use single brackets [ ], double brackets [[ ]] or $ to access columns fro
 ### Adding rows
 Use the rbind() function to add new rows in a Data Frame:
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
 # Add a new row
-> New_row_DF <- rbind(Data_Frame, c("Strength", 110, 110))
+New_row_DF <- rbind(Data_Frame, c("Strength", 110, 110))
 
 # Print the new row
-> New_row_DF 
+New_row_DF 
 ~~~
 {: .language-r}
 
@@ -123,12 +123,12 @@ Use the rbind() function to add new rows in a Data Frame:
 ### Adding columns
 Use the cbind() function to add new columns in a Data Frame:
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45)) 
-> New_col_DF <- cbind(Data_Frame, Steps = c(1000, 6000, 2000))# Add a new column
-> New_col_DF # Print the new column
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45)) 
+New_col_DF <- cbind(Data_Frame, Steps = c(1000, 6000, 2000))# Add a new column
+New_col_DF # Print the new column
 ~~~
 {: .language-r}
 
@@ -144,14 +144,14 @@ Training Pulse Duration Steps
 
 Use the c() function to remove rows and columns in a Data Frame:
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
-> Data_Frame_New <- Data_Frame[-c(1), -c(1)]# Remove the first row and column
+Data_Frame_New <- Data_Frame[-c(1), -c(1)]# Remove the first row and column
 
-> Data_Frame_New # Print the new data frame
+Data_Frame_New # Print the new data frame
 ~~~
 {: .language-r}
 
@@ -168,15 +168,15 @@ Training Pulse Duration Steps
 Use the dim() function to find the amount of rows and columns in a Data Frame:
 
 ~~~
-> Data_Frame <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
-> dim(Data_Frame)
-> ncol(Data_Frame)
-> nrow(Data_Frame)
-> length(Data_Frame)
+dim(Data_Frame)
+ncol(Data_Frame)
+nrow(Data_Frame)
+length(Data_Frame)
 ~~~
 {: .language-r}
 
@@ -197,18 +197,18 @@ Use the dim() function to find the amount of rows and columns in a Data Frame:
 Use the rbind() function to combine two or more data frames in R vertically:
 
 ~~~
-> Data_Frame1 <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame1 <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
-> Data_Frame2 <- data.frame (
-> Training = c("Stamina", "Stamina", "Strength"),
-> Pulse = c(140, 150, 160),
-> Duration = c(30, 30, 20))
+Data_Frame2 <- data.frame (
+Training = c("Stamina", "Stamina", "Strength"),
+Pulse = c(140, 150, 160),
+Duration = c(30, 30, 20))
 
-> New_Data_Frame <- rbind(Data_Frame1, Data_Frame2)
-> New_Data_Frame 
+New_Data_Frame <- rbind(Data_Frame1, Data_Frame2)
+New_Data_Frame 
 ~~~
 {: .language-r}
 
@@ -226,17 +226,17 @@ Use the rbind() function to combine two or more data frames in R vertically:
 Use the rbind() function to combine two or more data frames in R vertically:
 
 ~~~
-> Data_Frame3 <- data.frame (
-> Training = c("Strength", "Stamina", "Other"),
-> Pulse = c(100, 150, 120),
-> Duration = c(60, 30, 45))
+Data_Frame3 <- data.frame (
+Training = c("Strength", "Stamina", "Other"),
+Pulse = c(100, 150, 120),
+Duration = c(60, 30, 45))
 
-> Data_Frame4 <- data.frame (
-> Steps = c(3000, 6000, 2000),
-> Calories = c(300, 400, 300))
+Data_Frame4 <- data.frame (
+Steps = c(3000, 6000, 2000),
+Calories = c(300, 400, 300))
 
-> New_Data_Frame1 <- cbind(Data_Frame3, Data_Frame4)
-> New_Data_Frame1 
+New_Data_Frame1 <- cbind(Data_Frame3, Data_Frame4)
+New_Data_Frame1 
 ~~~
 {: .language-r}
 
@@ -260,15 +260,15 @@ Missing values are the data points that are absent for a specific variable in a 
 ### Removing rows with na.omit
 
 ~~~
-> df1= data.frame(  
-> A1 = c(NA, 10, NA, 7, 8, 11,20),
-> A2 = c("A", 9, 3, "B", "C", "D","E"),
-> A3 = c(1, 0, NA, 1, 1, NA,3))
-> print(df1) #printing the dataframe
+df1= data.frame(  
+A1 = c(NA, 10, NA, 7, 8, 11,20),
+A2 = c("A", 9, 3, "B", "C", "D","E"),
+A3 = c(1, 0, NA, 1, 1, NA,3))
+print(df1) #printing the dataframe
 
-> print("After removing the NA values ")
-> result=na.omit(df1)
-> print(result)
+print("After removing the NA values ")
+result=na.omit(df1)
+print(result)
 ~~~
 {: .language-r}
 
@@ -297,15 +297,15 @@ Missing values are the data points that are absent for a specific variable in a 
 ### Remove rows with missing values using complete.cases()
 
 ~~~
-> df1 <- data.frame(
-> A1 = c(NA, 10, NA, 7, 8, 11,20),
-> A2 = c("A", 9, 3, "B", "C", "D","E"),
-> A3 = c(1, 0, NA, 1, 1, NA,3))
-> print(df1)#printing the dataframe
+df1 <- data.frame(
+A1 = c(NA, 10, NA, 7, 8, 11,20),
+A2 = c("A", 9, 3, "B", "C", "D","E"),
+A3 = c(1, 0, NA, 1, 1, NA,3))
+print(df1)#printing the dataframe
 
-> print("After removing the NA values ")
-> result=df1[complete.cases(df1),]
-> print(result)
+print("After removing the NA values ")
+result=df1[complete.cases(df1),]
+print(result)
 ~~~
 {: .language-r}
 
@@ -338,9 +338,9 @@ Missing values are the data points that are absent for a specific variable in a 
 
 ~~~
 
-> vector_data <- c(1, 2, 3, 4, 4, 5) # Create a sample vector with duplicate elements
-> duplicated(vector_data) # Identify duplicate elements
-> sum(duplicated(vector_data)) # count of duplicated data
+vector_data <- c(1, 2, 3, 4, 4, 5) # Create a sample vector with duplicate elements
+duplicated(vector_data) # Identify duplicate elements
+sum(duplicated(vector_data)) # count of duplicated data
 
 ~~~
 {: .language-r}
@@ -355,8 +355,8 @@ Missing values are the data points that are absent for a specific variable in a 
 
 ~~~
 
-> vector_data <- c(1, 2, 3, 4, 4, 5)
-> unique(vector_data)# Remove duplicate elements
+vector_data <- c(1, 2, 3, 4, 4, 5)
+unique(vector_data)# Remove duplicate elements
 
 ~~~
 {: .language-r}
@@ -370,16 +370,15 @@ Missing values are the data points that are absent for a specific variable in a 
 
 ~~~
 
-> student_result=data.frame(name=c("Ram","Geeta","John","Paul",
->                                  "Cassie","Geeta","Paul"),
->                           maths=c(7,8,8,9,10,8,9),
->                           science=c(5,7,6,8,9,7,8),
->                           history=c(7,7,7,7,7,7,7))
+student_result=data.frame(name=c("Ram","Geeta","John",
+"Paul","Cassie","Geeta","Paul"),maths=c(7,8,8,9,10,8,9),
+science=c(5,7,6,8,9,7,8),
+history=c(7,7,7,7,7,7,7))
  
 
-> student_result # Printing data
-> duplicated(student_result)
-> sum(duplicated(student_result))
+student_result # Printing data
+duplicated(student_result)
+sum(duplicated(student_result))
 
 ~~~
 {: .language-r}
@@ -401,15 +400,15 @@ Missing values are the data points that are absent for a specific variable in a 
 ### Removing Duplicate Data in a data frame
 
 ~~~
-> student_result=data.frame(name=c("Ram","Geeta","John","Paul",
->                                  "Cassie","Geeta","Paul"),
->                           maths=c(7,8,8,9,10,8,9),
->                           science=c(5,7,6,8,9,7,8),
->                           history=c(7,7,7,7,7,7,7))
+student_result=data.frame(name=c("Ram","Geeta","John","Paul",
+"Cassie","Geeta","Paul"),
+maths=c(7,8,8,9,10,8,9),
+science=c(5,7,6,8,9,7,8),
+history=c(7,7,7,7,7,7,7))
  
 
-> student_result # Printing data
-> unique(student_result)
+student_result # Printing data
+unique(student_result)
 
 ~~~
 {: .language-r}
@@ -438,14 +437,14 @@ Missing values are the data points that are absent for a specific variable in a 
 Using paste() function is used to join the two columns in the dataframe with a separator.
 
 ~~~
-> data = data.frame(firstname=c("akash", "kyathi", "preethi"),
->                   lastname=c("deep", "lakshmi", "savithri"),
->                   marks=c(89, 96, 89))
-> print(data)# display
-> 
-> data$fullname = paste(data$firstname, data$lastname, sep=" ")# combine first name and last name columns
-> 
-> data # display
+data = data.frame(firstname=c("akash", "kyathi", "preethi"),
+lastname=c("deep", "lakshmi", "savithri"),
+marks=c(89, 96, 89))
+print(data)# display
+
+data$fullname = paste(data$firstname, data$lastname, sep=" ")# combine first name and last name columns
+
+data # display
 ~~~
 {: .language-r}
 
@@ -459,6 +458,35 @@ Using paste() function is used to join the two columns in the dataframe with a s
 1     akash     deep    89       akash deep
 2    kyathi  lakshmi    96   kyathi lakshmi
 3   preethi savithri    89 preethi savithri
+~~~
+{: .output}
+
+## How to convert a column to binaries 
+To do this we us the ifelse method
+~~~
+data = data.frame(firstname=c("akash", "kyathi", "preethi"),
+lastname=c("deep", "lakshmi", "savithri"),
+marks=c(55, 45, 80),
+subject=c("maths","science", "maths"))
+
+data$markspass <- ifelse(data$marks <= 50, 0, 1)
+print(data)# display
+data$subject_maths <- ifelse(data$subject == "maths", 0, 1)
+
+data # display
+~~~
+{: .language-r}
+
+~~~
+  firstname lastname marks subject markspass
+1     akash     deep    55   maths         1
+2    kyathi  lakshmi    45 science         0
+3   preethi savithri    80   maths         1
+
+  firstname lastname marks subject markspass subject_maths
+1     akash     deep    55   maths         1             0
+2    kyathi  lakshmi    45 science         0             1
+3   preethi savithri    80   maths         1             0
 ~~~
 {: .output}
 
@@ -517,6 +545,34 @@ AIC is also a relatively simple calculation and has been expanded upon by more a
 
 The choice between AIC and these newer methods depends on your priorities—whether you prioritise accuracy, computational efficiency, or the ease of calculation based on your software’s capabilities. In most cases where sufficient data is available, the best way to evaluate model performance is through traditional machine learning practices, using train, validation, and test sets. However, when such an approach isn’t feasible—such as in small datasets or time series analysis—AIC can be a valuable alternative for model evaluation.
 
+## Variable selection functions
 
+### Drop1 method
+
+The given AIC from drop1 relates to the whole model - not to a variable, so the output tells you which variable to remove in order to yield the model with the lowest AIC. For example, with the built-in dataset swiss
+
+~~~
+lm1 <- lm(Fertility ~ ., data = swiss)
+drop1(lm1, test = "F")  # So called 'type II' anova
+~~~
+{: .language-r}
+
+~~~
+Single term deletions
+
+Model:
+Fertility ~ Agriculture + Examination + Education + Catholic + 
+    Infant.Mortality
+                 Df Sum of Sq    RSS    AIC F value    Pr(>F)    
+<none>                        2105.0 190.69                      
+Agriculture       1    307.72 2412.8 195.10  5.9934  0.018727 *  
+Examination       1     53.03 2158.1 189.86  1.0328  0.315462    
+Education         1   1162.56 3267.6 209.36 22.6432 2.431e-05 ***
+Catholic          1    447.71 2552.8 197.75  8.7200  0.005190 ** 
+Infant.Mortality  1    408.75 2513.8 197.03  7.9612  0.007336 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
 
 {% include links.md %}
