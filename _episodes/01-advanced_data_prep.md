@@ -433,4 +433,33 @@ Missing values are the data points that are absent for a specific variable in a 
 ~~~
 {: .output}
 
+## How to Combine Two Columns into One
+
+Using paste() function is used to join the two columns in the dataframe with a separator.
+
+~~~
+> data = data.frame(firstname=c("akash", "kyathi", "preethi"),
+>                   lastname=c("deep", "lakshmi", "savithri"),
+>                   marks=c(89, 96, 89))
+> print(data)# display
+> 
+> data$fullname = paste(data$firstname, data$lastname, sep=" ")# combine first name and last name columns
+> 
+> data # display
+~~~
+{: .language-r}
+
+~~~
+   firstname lastname marks
+1     akash     deep    89
+2    kyathi  lakshmi    96
+3   preethi savithri    89
+
+  firstname lastname marks         fullname
+1     akash     deep    89       akash deep
+2    kyathi  lakshmi    96   kyathi lakshmi
+3   preethi savithri    89 preethi savithri
+~~~
+{: .output}
+
 {% include links.md %}
