@@ -114,10 +114,10 @@ Coefficients:
 (Intercept) 37.22727    1.59879  23.285  < 2e-16 ***
 hp          -0.03177    0.00903  -3.519  0.00145 ** 
 wt          -3.87783    0.63273  -6.129 1.12e-06 ***
----
+
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for gaussian family taken to be 6.725785)
+(Dispersion parameter for Gaussian family taken to be 6.725785)
 
     Null deviance: 1126.05  on 31  degrees of freedom
 Residual deviance:  195.05  on 29  degrees of freedom
@@ -132,7 +132,7 @@ A one-unit hp increase predicts a 0.03177 mpg decrease, while wt increase predic
 * Fit: Low residual deviance (195.05) versus null deviance (1126.05) and AIC (156.65) indicate a well-fitting model. 
 * Dispersion (6.725785) measures mpg variability, essential for assessing prediction precision. Practical: The model aids understanding and prediction of fuel efficiency, valuable for automotive design and environmental considerations.
 
-## Visualize the model
+## Visualise the model
 
 ~~~
 > plot(model, which = 1) # Plot the residual vs fitted values
@@ -148,6 +148,48 @@ After creating an extended linear model, we must evaluate its fit to the data. T
 The residual plot displays the residuals (differences between measured and predicted values) plotted against the fitted values. (i.e. the predicted values). We want to see a random scatter of residuals around zero, which indicates that the model is capturing the data trends.
 The residuals Q-Q plot displays the residuals plotted against the anticipated values if they were normally distributed. The points should follow a straight line, showing that the residuals are normally distributed.
 
+## Using ANOVA to compare two models
 
+We will fit two glm models to the data:
+
+* A simple model with fewer predictors.
+* A complex model with more predictors.
+
+We can now use the anova() function to compare the two models using a likelihood ratio test. 
+~~~
+> simple_model <- glm(mpg ~ hp, data = mtcars, family = gaussian)
+> complex_model <- glm(mpg ~ hp + wt, data = mtcars, family = gaussian)
+~~~
+{: .language-r}
+
+~~~
+Model 1: mpg ~ hp
+Model 2: mpg ~ hp + wt
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)    
+1        30     447.67                         
+2        29     195.05  1   252.63 8.86e-10 ***
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
+
+The anova() function performs the test, and the argument test = "Chisq" specifies that a chi-squared test should be used. The result will include the degrees of freedom (Df), deviance, and the p-value of the test.
+
+~~~
+> p_value <- model_comparison$`Pr(>Chi)`[2]   # Second row for comparison between models
+> print(p_value)
+~~~
+{: .language-r}
+
+~~~
+[1] 8.860267e-10
+~~~
+{: .output}
+
+Here, the Pr(>Chi) column holds the p-values, and we select the second row ([2]), which corresponds to the comparison between the two models. The resulting p_value will give the significance of adding the additional predictor(s) in the complex model.
+
+* High p-value (p > 0.05): The simpler model is sufficient. There is no evidence that the complex model is a better fit.
+* Low p-value (p < 0.05): The complex model provides a significantly better fit, and the additional predictor(s) improve the model.
+
+For example, if the p-value is 0.03, this would indicate that the more complex model is significantly better than the simpler model at the 5% significance level.
 
 {% include links.md %}
