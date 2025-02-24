@@ -297,7 +297,7 @@ Missing values are the data points that are absent for a specific variable in a 
 ### Remove rows with missing values using complete.cases()
 
 ~~~
-> df1 <- data.frame(  
+> df1 <- data.frame(
 > A1 = c(NA, 10, NA, 7, 8, 11,20),
 > A2 = c("A", 9, 3, "B", "C", "D","E"),
 > A3 = c(1, 0, NA, 1, 1, NA,3))
@@ -461,5 +461,62 @@ Using paste() function is used to join the two columns in the dataframe with a s
 3   preethi savithri    89 preethi savithri
 ~~~
 {: .output}
+
+## Assessing machine learning models with AIC
+
+### What is AIC?
+
+AIC is most commonly used when evaluating a model’s performance on a test set is difficult, such as in small datasets or time series analysis. It is especially useful for time series because the most valuable data points are often the most recent, which are typically reserved for validation and testing. By training on the entire dataset and using AIC, model selection can be improved compared to traditional train/validation/test approaches.
+
+AIC assesses a model’s fit on the training data while incorporating a penalty for complexity, similar to regularisation. The goal is to minimise AIC, striking the best balance between model fit and generalisability. This ultimately helps maximise performance on out-of-sample data.
+
+<img src="https://latex.codecogs.com/svg.image?AIC=-2ln(L)&plus;2k" />
+
+AIC evaluates a model’s fit using its maximum likelihood estimation (log-likelihood). Log-likelihood quantifies how probable the observed data is given the model, with higher values indicating a better fit. The natural logarithm of the likelihood is used for computational simplicity.
+
+Models with higher log-likelihoods tend to have lower AIC values, meaning they fit the data well. However, AIC also includes a penalty for model complexity—models with more parameters are more prone to over-fitting. This balance helps identify models that generalise better to unseen data.
+
+### when should you use AIC?
+
+AIC is commonly used when out-of-sample data is unavailable, when comparing multiple model types, or for efficiency. Recently, I used AIC to quickly evaluate several seasonal autoregressive integrated moving average (SARIMA) models to determine the best baseline while keeping the full dataset in my training set.
+
+When applying AIC to SARIMA models, it's important to recognize that AIC assumes all models are trained on the same data. This means using AIC to compare models with different orders of differencing is technically invalid, as each additional differencing order removes a data point. To use AIC correctly, you must ensure its assumptions are met. AIC assumes that you:
+
+* Are using the same data between models.
+* Are measuring the same outcome variable between models.
+* Have a sample of infinite size.
+
+The last assumption exists because AIC converges to the correct solution as the sample size approaches infinity. In practice, a large enough sample can provide a good approximation. However, since AIC is often used in small-sample scenarios, an adjusted version called AICc is available. AICc includes a correction term that aligns with AIC for large samples but provides a more accurate estimate for smaller ones.
+
+As a general rule, it’s safest to use AICc by default. It becomes especially important when the ratio of data points (n) to the number of parameters (k) is less than 40.
+
+Once the assumptions of AIC (or AICc) are met, one of its biggest advantages is that models do not need to be nested for valid comparisons. This contrasts with other single-number measures of model fit, such as the likelihood-ratio test, which requires nested models (where one model's parameters are a subset of another's). Because of this, AIC allows for direct comparison between vastly different models.
+
+### How Should AIC Results Be Interpreted?
+
+Once you have a set of AIC scores, what’s the next step? Should you simply choose the model with the lowest score? While that’s an option, AIC scores provide a probabilistic ranking of models based on their likelihood of minimizing information loss (i.e., best fitting the data). This concept is better understood through the formula below.
+
+Suppose you have calculated AIC scores for multiple models, resulting in a series (AIC₁, AIC₂, …, AICₙ). For any given AICᵢ, you can determine the probability that the “i-th” model minimizes information loss using the following formula, where AICₘᵢₙ represents the lowest AIC score in the set.
+
+<img src="https://latex.codecogs.com/svg.image?P=e^{\frac{(AIC_{min}-AIC_i)}{2}}" />
+
+For example, suppose you have three candidate models with AIC values of 100, 102, and 110. The second model is exp((100 − 102)/2) = 0.368 times as likely as the first model to minimize information loss. Similarly, the third model is exp((100 − 110)/2) = 0.007 times as likely as the first model to do so.
+
+This illustrates that AIC alone cannot definitively determine whether one model is better than another—it relies solely on in-sample data. However, there are strategies to interpret and handle these probabilistic results effectively:
+
+* Set an alpha level that, below which, competing models will be dismissed. Alpha = 0.05, for instance, would dismiss the 110-score model at 0.007.
+* If you find competing models above your alpha level, you can create a weighted sum of your models in proportion to their probability. A 1:0.368, in the case of the 100 and 102-scored models.
+
+If absolute precision isn’t critical and you simply want to choose the model with the lowest AIC, be aware that a small difference in AIC scores suggests a higher likelihood of selecting a suboptimal model. When multiple models have AIC scores close to the minimum, the distinction between them is less clear. For instance, a score of 100 versus 100.1 may not strongly favour one model over the other, whereas a comparison between 100 and 120 would indicate a much clearer preference.
+
+### Problems with AIC
+
+Remember, AIC only measures the relative quality of models, meaning that even the best model in your comparison could still have a poor fit. To ensure your model meets an acceptable absolute standard, additional metrics, such as Mean Absolute Percentage Error (MAPE), should be used.
+
+AIC is also a relatively simple calculation and has been expanded upon by more advanced, computationally intensive methods that often provide greater accuracy. Examples include the Deviance Information Criterion (DIC), Watanabe-Akaike Information Criterion (WAIC), and Leave-One-Out Cross-Validation (LOO-CV), which AIC asymptotically approaches as sample size increases.
+
+The choice between AIC and these newer methods depends on your priorities—whether you prioritise accuracy, computational efficiency, or the ease of calculation based on your software’s capabilities. In most cases where sufficient data is available, the best way to evaluate model performance is through traditional machine learning practices, using train, validation, and test sets. However, when such an approach isn’t feasible—such as in small datasets or time series analysis—AIC can be a valuable alternative for model evaluation.
+
+
 
 {% include links.md %}

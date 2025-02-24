@@ -192,4 +192,24 @@ Here, the Pr(>Chi) column holds the p-values, and we select the second row ([2])
 
 For example, if the p-value is 0.03, this would indicate that the more complex model is significantly better than the simpler model at the 5% significance level.
 
+## Other possible error distributions
+
+### Poisson linear regression
+
+Recall the Poisson distribution is a distribution of values that are zero or greater and integers only. The classic example of Poisson data are count observations–counts cannot be negative and typically are whole numbers. The Poisson distribution has one parameter, $(lambda), which is both the mean and the variance. A Poisson regression uses Log link (and therefore the coefficients need to be exponentiated to return them to the natural scale).
+
+~~~
+> glm(y ~ x, family = poisson)
+~~~
+{: .language-r}
+
+### Binomial linear regression
+
+Binomial regression is for binomial data—data that have some number of successes or failures from some number of trials. Let’s focus on the most common application of the binomial regression which is that when the number of trials is 1, which is often called logistic regression. The application of this model is when we have 1s and 0s as our outcomes, which often represent successes or failures, presence or absence, or any other binary outcome. The coefficients of a logistic regression model are reported in log-odds (the logarithm of the odds), which can be converted back to probability scale with the plogis() function. It is also worth noting that the estimate of p(50), or the probability of 50% for y, is calculated simply by taking the fraction of the negative intercept over the slope value.
+
+~~~
+> glm(y ~ x, family = binomial) 
+~~~
+{: .language-r}
+
 {% include links.md %}
