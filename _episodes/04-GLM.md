@@ -1,19 +1,19 @@
 ---
-title: "Generalised linear models (GLM)"
+title: "Linear models (LM)"
 teaching: 20
 exercises: 0
 questions:
-- "What are GLMs?"
+- "What are LMs?"
 - "How do we assess such methods?"
 - "what statistical tests can we use"
 objectives:
-- "Learn how to use GLMs."
+- "Learn how to use LMs."
 - "Learn how to asses the quality of the fit of our model."
-- "Learn what statistical test are relevant to GLM and how to apply them."
+- "Learn what statistical test are relevant to LM and how to apply them."
 keypoints:
-- "We can model linear data using GLM models."
+- "We can model linear data using LM models."
 - "We learned how to assess the quality of fit of our model to the data."
-- "We learned to apply ANOVA to GLM and can interpret the results"
+- "We learned to apply ANOVA to LM and can interpret the results"
 ---
 
 # What are Linear models
@@ -331,6 +331,32 @@ Now, let's walk through the process of implementing this approach.
 
 ~~~
 {: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = dist ~ speed, data = trainingData)
+
+Residuals:
+Min      1Q  Median      3Q     Max 
+-23.350 -10.771  -2.137   9.255  42.231 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -22.657      7.999  -2.833  0.00735 ** 
+speed          4.316      0.487   8.863 8.73e-11 ***
+
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 15.84 on 38 degrees of freedom
+Multiple R-squared:  0.674,  Adjusted R-squared:  0.6654 
+F-statistic: 78.56 on 1 and 38 DF,  p-value: 8.734e-11
+
+[1] 338.4489
+~~~
+{: .output}
 
 From the model summary, the model p value and predictor’s p value are less than the significance level, so we know we have a statistically significant model. Also, the R-Sq and Adj R-Sq are comparative to the original model built on full data.
 
