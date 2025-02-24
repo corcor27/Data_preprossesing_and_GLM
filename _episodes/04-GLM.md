@@ -332,8 +332,6 @@ Now, let's walk through the process of implementing this approach.
 ~~~
 {: .language-r}
 
-
-
 ~~~
 
 Call:
