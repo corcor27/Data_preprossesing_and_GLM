@@ -39,6 +39,7 @@ For this course will refine our selves to a short introduction into simple regre
 For this analysis, we will use the built-in cars dataset, which comes with R by default. This dataset is widely used for demonstrating linear regression in a straightforward and accessible way. You can access it by typing cars in your R console. The dataset contains 50 observations (rows) and 2 variables (columns): speed and dist. Let's print the dataset to see what it includes.
 
 ~~~
+> cars
 > head(cars)
 ~~~
 {: .language-r}
@@ -343,11 +344,5 @@ From the model summary, the model p value and predictor’s p value are less tha
 
 >![graph of the test regression data](../fig/speed_chart.png)
 {: .output}
-
-# What are GLMs
-
-A Generalised Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
-
-We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
 
 {% include links.md %}

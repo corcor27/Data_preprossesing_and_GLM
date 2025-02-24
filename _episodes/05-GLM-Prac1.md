@@ -1,98 +1,153 @@
 ---
-title: "GLM practical 1"
-teaching: 0
-exercises: 30
+title: "Generalised linear models (GLM)"
+teaching: 20
+exercises: 0
+questions:
+- "What are GLMs?"
+- "How do we assess such methods?"
+- "what statistical tests can we use"
+objectives:
+- "Learn how to use GLMs."
+- "Learn how to asses the quality of the fit of our model."
+- "Learn what statistical test are relevant to GLM and how to apply them."
+keypoints:
+- "We can model linear data using GLM models."
+- "We learned how to assess the quality of fit of our model to the data."
+- "We learned to apply ANOVA to GLM and can interpret the results"
 ---
 
+# What are GLMs
 
-## Preprocess the dataset
+A Generalised Linear Model (GLM) extends ordinary linear regression by allowing response variables to follow error distributions other than the normal (Gaussian) distribution. Essentially, a GLM is a linear model with a modified error distribution that more accurately represents the data-generating process and has found common use for analysing data examples such as count data or binary. For example, if your response variable consists of binary outcomes, such as successes and failures coded as 1s and 0s, these values do not follow a normal distribution, nor would their residuals exhibit a normal error distribution. In such cases, adjusting the underlying distribution in the model ensures a better fit for the data.
 
-Any easy way to calculate our intercepts is to use least squares fit. 
-~~~
-> lsfit(iris$Petal.Length, iris$Petal.Width)$coefficients # find linear fit intercepts
-~~~
-{: .language-r}
-~~~
-Intercept X
--0.3630755 0.4157554 .4
-~~~
-{: .output}
+We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
 
-So now we have our intercepts, lets plot our line of best fit to our data.
+## GLM using mtcars dataset
+
+We will use the “mtcars” dataset in R to illustrate the use of generalised linear models. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
+
 ~~~
-> plot(iris$Petal.Length, iris$Petal.Width, pch=21, bg=c("red","green3","blue")[unclass(iris$Species)], main="Edgar Anderson's Iris Data", xlab="Petal length", ylab="Petal width")
-> abline(lsfit(iris$Petal.Length, iris$Petal.Width)$coefficients, col="black") ### plot the clusters with linear line.
-> legend("top",levels(iris$Species), pch = 21, col = c("red","green3","blue")) 
+> mtcars
+> head(mtcars)
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/petal_l_w.png)
-{: .output}
+Now as we did before with the linear version, its a good idea to analyses our dataset first so lets visualise our data. But before we do we need to first combine the two column “hp” and “wt" by adding them together.
 
-So lets now have ago at building a linear model instead using "lm"
 ~~~
-> lm_fit <- lm(Petal.Width ~ Petal.Length, data=iris) ## create linear model
-> lm_fit$coefficients
+> mtcars$hpwt <- mtcars$hp + mtcars$wt
 ~~~
 {: .language-r}
 
-~~~
-(Intercept) Petal.Length
--0.3630755 0.4157554 
-~~~
-{: .output}
+## Graphical analysis
 
-Again lets plot our linear model
+### Scatter Plot
+
+Scatter plots can help visualise any linear relationships between the dependent (response) variable and independent (predictor) variables. Ideally, if you are having multiple predictor variables, a scatter plot is drawn for each one of them against the response, along with the line of best as seen below.
 
 ~~~
-> plot(iris$Petal.Length, iris$Petal.Width, pch=21, bg=c("red","green3","blue")[unclass(iris$Species)], main="Edgar Anderson's Iris Data", xlab="Petal length", ylab="Petal width")
-> abline(lm(Petal.Width ~ Petal.Length, data=iris)$coefficients, col="black") ## plot linear model
-> legend("top",levels(iris$Species), pch = 21, col = c("red","green3","blue")) 
+> scatter.smooth(x=mtcars$mpg, y=mtcars$hpwt, main="Mpg ~ hpwt")
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/petal_l_w.png)
+>![graph of the test regression data](../fig/mt_scatter.png)
 {: .output}
 
-We can also look at how well our linear model fits the data by examining the p values and also have our model predict values for Petal width.
+
+### Boxplot to check for outliers
+
+Generally, any datapoint that lies outside the 1.5 * interquartile-range (1.5 * IQR) is considered an outlier, where, IQR is calculated as the distance between the 25th percentile and 75th percentile values for that variable.
 
 ~~~
-> summary(lm(Petal.Width ~ Petal.Length, data=iris)) 
-> newdata = data.frame(Petal.Length=c(2,3,5)) ##create dataframe of features to predict
-> predict(lm_fit, newdata) ## predict linear model
+> par(mfrow=c(1, 2))  # divide graph area in 2 columns
+> boxplot(mtcars$mpg, main="Mpg", sub=paste("Outlier rows: ", boxplot.stats(mtcars$mpg)$out))  # box plot for 'mpg'
+> boxplot(mtcars$hpwt, main="hpwt", sub=paste("Outlier rows: ", boxplot.stats(mtcars$hpwt)$out))  # box plot for 'hpwt'
+~~~
+{: .language-r}
+
+>![graph of the test regression data](../fig/mt_boxplots.png)
+{: .output}
+
+### Density plot – Check if the response variable is close to normality
+
+Its a good idea to check what form our data is in, to make choosing to use GLM applicable.
+
+~~~
+> library(e1071)
+> par(mfrow=c(1, 2))  # divide graph area in 2 columns
+> plot(density(mtcars$mpg), main="Density Plot: mpg", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$mpg), 2)))  # density plot for 'mpg'
+> polygon(density(mtcars$mpg), col="red")
+> plot(density(mtcars$hpwt), main="Density Plot: hpwt", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$hpwt), 2)))  # density plot for 'hpwt'
+> polygon(density(mtcars$hpwt), col="red")
+~~~
+{: .language-r}
+
+>![graph of the test regression data](../fig/mt_density.png)
+{: .output}
+
+## Building the model
+
+The Gaussian family is used in this example, which implies that the response variable has a normal distribution. The glm() function yields an object of class “glm” containing model information such as coefficients and deviance.
+
+~~~
+> model <- glm(mpg ~ hp + wt, data = mtcars, family = gaussian)
+> summary(model)
+~~~
+{: .language-r}
+
+
+### Why Gaussian family?
+
+The model may be clearly understood in terms of the mean and variance of the response variable, which is one benefit of employing the Gaussian family. Additionally, the model can be fitted using the well-known and popular statistical technique known as maximum likelihood estimation.
+
+~~~
+> summary(model)
 ~~~
 {: .language-r}
 
 ~~~
 Call:
-lm(formula = Petal.Width ~ Petal.Length, data = iris)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.56515 -0.12358 -0.01898  0.13288  0.64272 
+glm(formula = mpg ~ hp + wt, family = gaussian, data = mtcars)
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  -0.363076   0.039762  -9.131  4.7e-16 ***
-Petal.Length  0.415755   0.009582  43.387  < 2e-16 ***
-
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 37.22727    1.59879  23.285  < 2e-16 ***
+hp          -0.03177    0.00903  -3.519  0.00145 ** 
+wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2065 on 148 degrees of freedom
-Multiple R-squared:  0.9271,	Adjusted R-squared:  0.9266 
-F-statistic:  1882 on 1 and 148 DF,  p-value: < 2.2e-16
+(Dispersion parameter for gaussian family taken to be 6.725785)
 
-Prediction Results
+    Null deviance: 1126.05  on 31  degrees of freedom
+Residual deviance:  195.05  on 29  degrees of freedom
+AIC: 156.65
 
-        1         2         3 
-0.4684353 0.8841907 1.7157016 
+Number of Fisher Scoring iterations: 2
 ~~~
 {: .output}
 
-> ## Try different features
->
-> Have ago at using the same code and trying with sepal instead of petal, or any combination.
->
-{: .challenge}
+A one-unit hp increase predicts a 0.03177 mpg decrease, while wt increase predicts a 3.87783 mpg decrease. Significance: All coefficients (intercept, hp, wt) are statistically significant, ensuring reliability. 
+
+* Fit: Low residual deviance (195.05) versus null deviance (1126.05) and AIC (156.65) indicate a well-fitting model. 
+* Dispersion (6.725785) measures mpg variability, essential for assessing prediction precision. Practical: The model aids understanding and prediction of fuel efficiency, valuable for automotive design and environmental considerations.
+
+## Visualize the model
+
+~~~
+> plot(model, which = 1) # Plot the residual vs fitted values
+> plot(model, which = 2) # Plot the Q-Q plot of residuals
+~~~
+{: .language-r}
+
+>![graph of the test regression data](../fig/mtcars_plots.png)
+{: .output}
+
+After creating an extended linear model, we must evaluate its fit to the data. This can be accomplished with the help of diagnostic graphs such as the residual plot and the Q-Q plot. The output is shown above.
+
+The residual plot displays the residuals (differences between measured and predicted values) plotted against the fitted values. (i.e. the predicted values). We want to see a random scatter of residuals around zero, which indicates that the model is capturing the data trends.
+The residuals Q-Q plot displays the residuals plotted against the anticipated values if they were normally distributed. The points should follow a straight line, showing that the residuals are normally distributed.
+
+
 
 {% include links.md %}
