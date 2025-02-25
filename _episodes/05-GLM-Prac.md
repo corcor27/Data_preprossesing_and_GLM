@@ -25,25 +25,25 @@ data(fishing)
 > 2) Using your best model plot the line of best fit to the data.
 >
 > > ## Solution
-> > pois.glm <- glm(totabund ~ meandepth, data = fishing, family = poisson)
+> > 1) pois.glm <- glm(totabund ~ meandepth, data = fishing, family = poisson)
 > > 
-> > summary(pois.glm)
+> > 1) summary(pois.glm)
 > >
-> > AIC(pois.glm)
+> > 1) AIC(pois.glm)
 > > 
-> > result for poisson: [1] 16754.46
+> > 1) result for poisson: [1] 16754.46
 > > 
-> > binomial model not possible: Error in eval(family$initialize) : y values must be 0 <= y <= 1
+> > 1) binomial model not possible: Error in eval(family$initialize) : y values must be 0 <= y <= 1
 > > 
-> > gaus.glm <- glm(totabund ~ meandepth, data = fishing, family = gaussian)
+> > 1) gaus.glm <- glm(totabund ~ meandepth, data = fishing, family = gaussian)
 > >
-> > summary(gaus.glm)
+> > 1) summary(gaus.glm)
 > >
-> > AIC(gaus.glm)
+> > 1) AIC(gaus.glm)
 > >
-> > result for gaussian: [1] 1954.792
+> > 1) result for gaussian: [1] 1954.792
 > >
-> > as gaussian AIC is smaller than poisson AIC, gaussian provides better fit.
+> > 1) as gaussian AIC is smaller than poisson AIC, gaussian provides better fit.
 > {: .solution}
 {: .challenge}
 
@@ -71,17 +71,16 @@ Using the YERockfish data in the FSAdata library, let’s model the relationship
 > > 
 > > 1) So looking at our data we can see that we have both missing values and our target labels are not in the form of 0 and 1.
 > > 
-> > 2)
 > >
-> > YERockfish2 <- na.omit(YERockfish) # remove missing values
+> > 2) YERockfish2 <- na.omit(YERockfish) # remove missing values
 > > 
-> > YERockfish2$maturity2 <- ifelse(YERockfish2$maturity == "Immature", 0, 1) #convert Immature to 0 and mature to 1 and call the column maturity2
+> > 2) YERockfish2$maturity2 <- ifelse(YERockfish2$maturity == "Immature", 0, 1) #convert Immature to 0 and mature to 1 and call the column maturity2
 > > 
-> > binom.glm <- glm(maturity2 ~ length, data = YERockfish2, family = binomial)
+> > 2) binom.glm <- glm(maturity2 ~ length, data = YERockfish2, family = binomial)
 > > 
-> > summary(binom.glm)
+> > 2) summary(binom.glm)
 > >
-> > AIC(binom.glm)
+> > 2) AIC(binom.glm)
 > >
 > {: .solution}
 {: .challenge}

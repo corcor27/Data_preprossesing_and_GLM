@@ -31,20 +31,20 @@ penguins
 > 
 >
 > > ## Solution
-> > The issue is that we have some missing values and if we want to do any sort of linear regression they will need to be removed.
-> > penguins=na.omit(penguins)
-> > penguins
+> > 1) The issue is that we have some missing values and if we want to do any sort of linear regression they will need to be removed.
+> > 1) penguins=na.omit(penguins)
+> > 1) penguins
 > > 
-> > either penguin$sex <- ifelse(penguin$sex == "male", 0, 1) or penguin$sex <- ifelse(penguin$sex == "female", 0, 1) 
+> > 2) either penguin$sex <- ifelse(penguin$sex == "male", 0, 1) or penguin$sex <- ifelse(penguin$sex == "female", 0, 1) 
 > > 
-> > assuming to 3dp, model1: 0.368, model3:0.003, model4:0.082. We can therefore reject models 1 and 4.
-> > What value would model4 need to get for us not to reject it?
+> > 3) assuming to 3dp, model1: 0.368, model3:0.003, model4:0.082. We can therefore reject models 1 and 4.
+> > 3) What value would model4 need to get for us not to reject it?
 > >
-> > lm1 <- lm(sex ~ ., data = penguins)
+> > 4) lm1 <- lm(sex ~ ., data = penguins)
 > > 
-> > drop1(lm1, test = "F")  # So called 'type II' anova
+> > 4) drop1(lm1, test = "F")  # So called 'type II' anova
 > >
-> > species + island + bill_length_mm + bill_depth_mm + flipper_length_mm + body_mass_g + year
+> > 4) species + island + bill_length_mm + bill_depth_mm + flipper_length_mm + body_mass_g + year
 > >
 > >
 > >
