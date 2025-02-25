@@ -24,6 +24,9 @@ We now create a basic linear model for a given dataset. It would be valuable to 
 
 linear regression, logistic regression, and Poisson regression are really all special examples of a more general method, something called a "generalized linear model". The great thing about "generalized linear models" is that they allow us to use "response" data that can take any value (like how big an organism is in linear regression), take only 1's or 0's (like whether or not someone has a disease in logistic regression), or take discrete counts (like number of events in Poisson regression).
 
+>![graph of the test regression data](../fig/GLM_1.png)
+{: .output}
+
 ## GLM using mtcars dataset
 
 We will use the “mtcars” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
