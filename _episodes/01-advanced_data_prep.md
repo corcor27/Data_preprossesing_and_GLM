@@ -579,4 +579,33 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 {: .output}
 
+
+## ANOVA for Comparing Models
+
+Comparing two linear models is a fundamental task in statistical analysis, especially when determining if a more complex model provides a significantly better fit to the data than a simpler one. In R, the anova() the function allows you to perform an Analysis of Variance (ANOVA) to compare nested models.
+
+The Analysis of Variance (ANOVA) technique compares two nested models to determine if the more complex model provides a significantly better fit to the data. The anova() function in R performs this comparison by calculating an F-statistic and a p-value. The null hypothesis is that the simpler model is adequate, and the alternative hypothesis is that the more complex model is better. If the p-value is small (typically less than 0.05), we reject the null hypothesis and conclude that the complex model provides a significantly better fit.
+
+~~~
+lm1 <- lm(Fertility ~ Agriculture, data = swiss)
+lm2 <- lm(Fertility ~ Agriculture + Examination, data = swiss)
+anova_result <- anova(lm1, lm2)
+print(anova_result)
+
+~~~
+{: .language-r}
+
+~~~
+nalysis of Variance Table
+
+Model 1: Fertility ~ Agriculture
+Model 2: Fertility ~ Agriculture + Examination
+  Res.Df    RSS Df Sum of Sq     F  Pr(>F)    
+1     45 6283.1                               
+2     44 4072.7  1    2210.4 23.88 1.4e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
+
 {% include links.md %}

@@ -1,7 +1,7 @@
 ---
 title: "General linear models (GLM)"
-teaching: 20
-exercises: 0
+teaching: 50
+exercises: 10
 questions:
 - "What are GLMs?"
 - "How do we assess such methods?"

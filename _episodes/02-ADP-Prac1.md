@@ -42,8 +42,7 @@ penguins
 > > 
 > > drop1(lm1, test = "F")  # So called 'type II' anova
 > >
-> > species + island + bill_length_mm + bill_depth_mm + flipper_length_mm + 
-    body_mass_g + year
+> > species + island + bill_length_mm + bill_depth_mm + flipper_length_mm + body_mass_g + year
 > >
 > >
 > >
