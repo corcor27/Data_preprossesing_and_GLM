@@ -34,12 +34,8 @@ head(mtcars)
 ~~~
 {: .language-r}
 
-Now as we did before with the linear version, its a good idea to analyses our dataset first so lets visualise our data. But before we do we need to first combine the two column “hp” and “wt" by adding them together.
+Now as we did before with the linear version, its a good idea to analyses our dataset first so lets visualise our data. But the issue this time is that we are considering two variables hp and wt that we should look at seperately.
 
-~~~
-mtcars$hpwt <- mtcars$hp + mtcars$wt
-~~~
-{: .language-r}
 
 ## Graphical analysis
 
@@ -48,13 +44,19 @@ mtcars$hpwt <- mtcars$hp + mtcars$wt
 Scatter plots can help visualise any linear relationships between the dependent (response) variable and independent (predictor) variables. Ideally, if you are having multiple predictor variables, a scatter plot is drawn for each one of them against the response, along with the line of best as seen below.
 
 ~~~
-scatter.smooth(x=mtcars$mpg, y=mtcars$hpwt, main="Mpg ~ hpwt")
+scatter.smooth(x=mtcars$mpg, y=mtcars$hp, main="Mpg ~ hp")
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/mt_scatter.png)
+>![graph of the test regression data](../fig/hp_scatter.png)
 {: .output}
+~~~
+scatter.smooth(x=mtcars$mpg, y=mtcars$wt, main="Mpg ~ wt")
+~~~
+{: .language-r}
 
+>![graph of the test regression data](../fig/wt_scatter.png)
+{: .output}
 
 ### Boxplot to check for outliers
 
@@ -63,11 +65,21 @@ Generally, any datapoint that lies outside the 1.5 * interquartile-range (1.5 
 ~~~
 par(mfrow=c(1, 2))  # divide graph area in 2 columns
 boxplot(mtcars$mpg, main="Mpg", sub=paste("Outlier rows: ", boxplot.stats(mtcars$mpg)$out))  # box plot for 'mpg'
-boxplot(mtcars$hpwt, main="hpwt", sub=paste("Outlier rows: ", boxplot.stats(mtcars$hpwt)$out))  # box plot for 'hpwt'
+boxplot(mtcars$hp, main="hp", sub=paste("Outlier rows: ", boxplot.stats(mtcars$hp)$out))  # box plot for 'hp'
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/mt_boxplots.png)
+>![graph of the test regression data](../fig/hp_box.png)
+{: .output}
+
+~~~
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+boxplot(mtcars$mpg, main="Mpg", sub=paste("Outlier rows: ", boxplot.stats(mtcars$mpg)$out))  # box plot for 'mpg'
+boxplot(mtcars$wt, main="wt", sub=paste("Outlier rows: ", boxplot.stats(mtcars$wt)$out))  # box plot for 'wt'
+~~~
+{: .language-r}
+
+>![graph of the test regression data](../fig/wt_box.png)
 {: .output}
 
 ### Density plot – Check if the response variable is close to normality
@@ -79,13 +91,27 @@ library(e1071)
 par(mfrow=c(1, 2))  # divide graph area in 2 columns
 plot(density(mtcars$mpg), main="Density Plot: mpg", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$mpg), 2)))  # density plot for 'mpg'
 polygon(density(mtcars$mpg), col="red")
-plot(density(mtcars$hpwt), main="Density Plot: hpwt", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$hpwt), 2)))  # density plot for 'hpwt'
-polygon(density(mtcars$hpwt), col="red")
+plot(density(mtcars$hp), main="Density Plot: hp", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$hp), 2)))  # density plot for 'hp'
+polygon(density(mtcars$hp), col="red")
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/mt_density.png)
+>![graph of the test regression data](../fig/hp_density.png)
 {: .output}
+
+~~~
+library(e1071)
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+plot(density(mtcars$mpg), main="Density Plot: mpg", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$mpg), 2)))  # density plot for 'mpg'
+polygon(density(mtcars$mpg), col="red")
+plot(density(mtcars$wt), main="Density Plot: wt", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$wt), 2)))  # density plot for 'wt'
+polygon(density(mtcars$wt), col="red")
+~~~
+{: .language-r}
+
+>![graph of the test regression data](../fig/wt_density.png)
+{: .output}
+
 
 ## Building the model
 
