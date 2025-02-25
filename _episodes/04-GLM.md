@@ -22,6 +22,8 @@ A General Linear Model (GLM) extends ordinary linear regression by allowing resp
 
 We now create a basic linear model for a given dataset. It would be valuable to assess the accuracy of this model. One way to achieve this is by computing the predicted y-values for each x-value in our original dataset and comparing them with the actual y-values. We can aggregate these individual discrepancies into a single comprehensive error metric by calculating the least squares. This involves squaring each difference, summing them all, dividing the sum by the total number of observations, and then taking the square root of the result. By squaring and subsequently taking the square root, we prevent negative errors from offsetting positive ones, thus providing us with an overall error metric to gauge the accuracy of our model.
 
+linear regression, logistic regression, and Poisson regression are really all special examples of a more general method, something called a "generalized linear model". The great thing about "generalized linear models" is that they allow us to use "response" data that can take any value (like how big an organism is in linear regression), take only 1's or 0's (like whether or not someone has a disease in logistic regression), or take discrete counts (like number of events in Poisson regression).
+
 ## GLM using mtcars dataset
 
 We will use the “mtcars” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
