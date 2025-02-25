@@ -4,6 +4,8 @@ teaching: 0
 exercises: 40
 ---
 
+
+
 ## Exercise 1
 
 Using the fishing data in the COUNT library, let’s model the relationship between total abundance (totabund) and mean depth (meandepth). Total abundance are counts, and we might hypothesise that abundances of fishes decreases with increasing depth.
@@ -15,7 +17,7 @@ penguins
 {: .language-r}
 
 
-> ## Exercise 2 tasks and solution
+> ## Exercise 1 tasks and solution
 > Your tasks are as follows: 
 >
 > 1) Have a look at the data and can you see any issues you may have? after noticing the problem, its time to clean the data

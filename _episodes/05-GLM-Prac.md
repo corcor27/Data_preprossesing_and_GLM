@@ -9,9 +9,9 @@ exercises: 30
 Using the fishing data in the COUNT library, let’s model the relationship between total abundance (totabund) and mean depth (meandepth). Total abundance are counts, and we might hypothesise that abundances of fishes decreases with increasing depth.
 
 ~~~
-> install.packages("COUNT")
-> library(COUNT)
-> data(fishing)
+install.packages("COUNT")
+library(COUNT)
+data(fishing)
 
 ~~~
 {: .language-r}
