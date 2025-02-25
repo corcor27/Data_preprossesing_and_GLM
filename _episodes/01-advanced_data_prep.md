@@ -3,19 +3,17 @@ title: "Advanced data preparation"
 teaching: 20
 exercises: 0
 questions:
-- How do we prepare data form more complex methods?
-- How do we tested linear models?
+- "How do we prepare data form more complex methods?"
+- "How do we tested linear models?"
 objectives:
 - "To understand how to edit data frames, including find problematic values and edit/removing them"
 - "To understand what data is ready for use with GLMs"
 - "How to test different GLMs"
 - "How to find the best collection of variables for GLM"
-
 keypoints:
 - "Edit dataframes"
 - "types of data is ready for GLM"
-- "method to test and find the best models
-
+- "method to test and find the best models"
 ---
 
 ## Dataframes
