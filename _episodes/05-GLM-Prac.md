@@ -44,6 +44,11 @@ data(fishing)
 > > 1) result for gaussian: [1] 1954.792
 > >
 > > 1) as gaussian AIC is smaller than poisson AIC, gaussian provides better fit.
+> >
+> > 1) You could also run the following:
+> > 1) library(MuMIn) # install.packages("MuMIn")
+> >
+> > 1) model.sel(pois.glm, gaus.glm)
 > {: .solution}
 {: .challenge}
 
@@ -81,6 +86,7 @@ Using the YERockfish data in the FSAdata library, let’s model the relationship
 > > 2) summary(binom.glm)
 > >
 > > 2) AIC(binom.glm)
+> > 
 > >
 > {: .solution}
 {: .challenge}
