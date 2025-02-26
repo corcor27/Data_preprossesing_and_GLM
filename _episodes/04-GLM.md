@@ -1,5 +1,5 @@
 ---
-title: "Generalised linear models (GLM)"
+title: "General linear models (GLM)"
 teaching: 50
 exercises: 10
 questions:
