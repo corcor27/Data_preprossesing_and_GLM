@@ -198,6 +198,7 @@ We can now use the anova() function to compare the two models using a likelihood
 ~~~
 simple_model <- glm(mpg ~ hp, data = mtcars, family = gaussian)
 complex_model <- glm(mpg ~ hp + wt, data = mtcars, family = gaussian)
+anova(simple_model, complex_model, test="Chisq")
 ~~~
 {: .language-r}
 
