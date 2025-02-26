@@ -473,9 +473,9 @@ lastname=c("deep", "lakshmi", "savithri"),
 marks=c(55, 45, 80),
 subject=c("maths","science", "maths"))
 
-data$markspass <- ifelse(data$marks <= 50, 0, 1)
+data$markspass <- ifelse(data$marks >= 50, 1, 0)
 print(data)# display
-data$subject_maths <- ifelse(data$subject == "maths", 0, 1)
+data$subject_maths <- ifelse(data$subject == "maths", 1, 0)
 
 data # display
 ~~~
