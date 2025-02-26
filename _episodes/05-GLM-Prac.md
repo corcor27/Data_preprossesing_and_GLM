@@ -22,7 +22,7 @@ data(fishing)
 >
 > 1) compare different GLM distributions—Poisson, Binomial, and Gaussian—to determine which version of the model provides the best fit. (hint using AIC might be a quick method)
 >
-> 2) Using your best model plot the line of best fit to the data.
+> 2) Using your best model based on AIC and plot the line of best fit to the data. why not plot the other aswell
 >
 > > ## Solution
 > > 1) pois.glm <- glm(totabund ~ meandepth, data = fishing, family = poisson)
