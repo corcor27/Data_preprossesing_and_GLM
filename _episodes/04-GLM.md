@@ -31,6 +31,10 @@ linear regression, logistic regression, and Poisson regression are really all sp
 >![graph of the test regression data](../fig/GLM_1.png)
 {: .output}
 
+
+>![graph of the test regression data](../fig/Genral_to_generalised.png)
+{: .output}
+
 ## GLM using mtcars dataset
 
 We will use the “mtcars” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
