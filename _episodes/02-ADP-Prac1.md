@@ -37,8 +37,8 @@ penguins
 > > 
 > > 2) either penguin$sex <- ifelse(penguin$sex == "male", 0, 1) or penguin$sex <- ifelse(penguin$sex == "female", 0, 1) 
 > > 
-> > 3) assuming to 3dp, model1: 0.368, model3:0.003, model4:0.082. We can therefore reject models 1 and 4.
-> > 3) What value would model4 need to get for us not to reject it?
+> > 3) assuming to 3dp, model1: 0.368, model3:0.003, model4:0.082. We can therefore reject model3.
+> > 3) What value would model4 need to get for us to reject it?
 > >
 > > 4) lm1 <- lm(sex ~ ., data = penguins)
 > > 
