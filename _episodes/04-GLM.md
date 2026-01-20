@@ -28,7 +28,32 @@ We now create a basic linear model for a given dataset. It would be valuable to 
 
 linear regression, logistic regression, and Poisson regression are really all special examples of a more general method, something called a "generalized linear model". The great thing about "generalized linear models" is that they allow us to use "response" data that can take any value (like how big an organism is in linear regression), take only 1's or 0's (like whether or not someone has a disease in logistic regression), or take discrete counts (like number of events in Poisson regression).
 
+## Summary: What they are ?
+
+* Extend linear models to handle non-normal response variables.
+* Useful when the response is binary, count, or proportion data.
+
+## Three components of a GLM
+
+- Random component
+  * Distribution of the response (from the exponential family)
+  * e.g. Normal, Binomial, Poisson
+
+- Systematic component
+  * Linear predictor:
+
 <img src="https://latex.codecogs.com/svg.image?&space;n = \beta_{0}&plus;\sum\beta_{i}\chi_{i}" />
+
+- Link function
+  * Connects the mean of y to the linear predictor:
+  
+<img src="https://latex.codecogs.com/svg.image?&space;g(E[y]) = n" />
+
+Typical use cases
+
+* Binary outcomes → Logistic regression
+* Counts → Poisson regression
+* Proportions → Binomial regression
 
 >![graph of the test regression data](../fig/GLM_1.png)
 {: .output}
