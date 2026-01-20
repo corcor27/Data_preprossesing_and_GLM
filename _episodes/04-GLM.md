@@ -28,6 +28,8 @@ We now create a basic linear model for a given dataset. It would be valuable to 
 
 linear regression, logistic regression, and Poisson regression are really all special examples of a more general method, something called a "generalized linear model". The great thing about "generalized linear models" is that they allow us to use "response" data that can take any value (like how big an organism is in linear regression), take only 1's or 0's (like whether or not someone has a disease in logistic regression), or take discrete counts (like number of events in Poisson regression).
 
+<img src="https://latex.codecogs.com/svg.image?&space;n = \beta_{0}&plus;\sum\beta_{i}\chi_{i}" />
+
 >![graph of the test regression data](../fig/GLM_1.png)
 {: .output}
 
