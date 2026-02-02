@@ -498,7 +498,7 @@ data # display
 
 ### What is AIC?
 
-AIC is most commonly used when evaluating a model’s performance on a test set is difficult, such as in small datasets or time series analysis. It is especially useful for time series because the most valuable data points are often the most recent, which are typically reserved for validation and testing. By training on the entire dataset and using AIC, model selection can be improved compared to traditional train/validation/test approaches.
+Akaike information criterion (AIC) is most commonly used when evaluating a model’s performance on a test set is difficult, such as in small datasets or time series analysis. It is especially useful for time series because the most valuable data points are often the most recent, which are typically reserved for validation and testing. By training on the entire dataset and using AIC, model selection can be improved compared to traditional train/validation/test approaches.
 
 AIC assesses a model’s fit on the training data while incorporating a penalty for complexity, similar to regularisation. The goal is to minimise AIC, striking the best balance between model fit and generalisability. This ultimately helps maximise performance on out-of-sample data.
 
