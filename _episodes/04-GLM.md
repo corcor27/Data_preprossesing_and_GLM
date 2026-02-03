@@ -64,11 +64,11 @@ Typical use cases
 
 ## GLM using mtcars dataset
 
-We will use the “mtcars” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
+We will use the “iris” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
 
 ~~~
-mtcars
-head(mtcars)
+iris
+head(iris)
 ~~~
 {: .language-r}
 
@@ -82,18 +82,19 @@ Now as we did before with the linear version, its a good idea to analyses our da
 Scatter plots can help visualise any linear relationships between the dependent (response) variable and independent (predictor) variables. Ideally, if you are having multiple predictor variables, a scatter plot is drawn for each one of them against the response, along with the line of best as seen below.
 
 ~~~
-scatter.smooth(x=mtcars$mpg, y=mtcars$hp, main="Mpg ~ hp")
+scatter.smooth(x=iris$Sepal.Length, y=iris$Petal.Length, main="Sepal.L ~ Petal.L")
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/hp_scatter.png)
+>![graph of the test regression data](../fig/Screenshot from 2026-02-03 11-25-30.png)
 {: .output}
 ~~~
-scatter.smooth(x=mtcars$mpg, y=mtcars$wt, main="Mpg ~ wt")
+scatter.smooth(x=iris$Sepal.Length, y=iris$Petal.Width, main="Sepal.L ~ Petal.W")
+> 
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/wt_scatter.png)
+>![graph of the test regression data](../fig/Screenshot from 2026-02-03 11-26-46.png)
 {: .output}
 
 ### Boxplot to check for outliers
@@ -101,53 +102,37 @@ scatter.smooth(x=mtcars$mpg, y=mtcars$wt, main="Mpg ~ wt")
 Generally, any datapoint that lies outside the 1.5 * interquartile-range (1.5 * IQR) is considered an outlier, where, IQR is calculated as the distance between the 25th percentile and 75th percentile values for that variable.
 
 ~~~
-par(mfrow=c(1, 2))  # divide graph area in 2 columns
-boxplot(mtcars$mpg, main="Mpg", sub=paste("Outlier rows: ", boxplot.stats(mtcars$mpg)$out))  # box plot for 'mpg'
-boxplot(mtcars$hp, main="hp", sub=paste("Outlier rows: ", boxplot.stats(mtcars$hp)$out))  # box plot for 'hp'
+par(mfrow=c(1, 3))  # divide graph area in 2 columns
+boxplot(iris$Sepal.Length, main="Sepal.L", sub=paste("Outlier rows: ", boxplot.stats(iris$Sepal.Length)$out))  # box plot for 'Sepal.L'
+boxplot(iris$Petal.Length, main="Petal.L", sub=paste("Outlier rows: ", boxplot.stats(iris$Petal.Length)$out))  # box plot for 'Petal.L'
+boxplot(iris$Petal.Width, main="Petal.W", sub=paste("Outlier rows: ", boxplot.stats(iris$Petal.Width)$out))  # box plot for 'Petal.W'
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/hp_box.png)
+>![graph of the test regression data](../fig/Screenshot from 2026-02-03 11-31-19.png)
 {: .output}
 
-~~~
-par(mfrow=c(1, 2))  # divide graph area in 2 columns
-boxplot(mtcars$mpg, main="Mpg", sub=paste("Outlier rows: ", boxplot.stats(mtcars$mpg)$out))  # box plot for 'mpg'
-boxplot(mtcars$wt, main="wt", sub=paste("Outlier rows: ", boxplot.stats(mtcars$wt)$out))  # box plot for 'wt'
-~~~
-{: .language-r}
 
->![graph of the test regression data](../fig/wt_box.png)
-{: .output}
 
 ### Density plot – Check if the response variable is close to normality
 
 Its a good idea to check what form our data is in, to make choosing to use GLM applicable.
 
-~~~
-library(e1071)
-par(mfrow=c(1, 2))  # divide graph area in 2 columns
-plot(density(mtcars$mpg), main="Density Plot: mpg", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$mpg), 2)))  # density plot for 'mpg'
-polygon(density(mtcars$mpg), col="red")
-plot(density(mtcars$hp), main="Density Plot: hp", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$hp), 2)))  # density plot for 'hp'
-polygon(density(mtcars$hp), col="red")
-~~~
-{: .language-r}
 
->![graph of the test regression data](../fig/hp_density.png)
-{: .output}
 
 ~~~
 library(e1071)
-par(mfrow=c(1, 2))  # divide graph area in 2 columns
-plot(density(mtcars$mpg), main="Density Plot: mpg", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$mpg), 2)))  # density plot for 'mpg'
-polygon(density(mtcars$mpg), col="red")
-plot(density(mtcars$wt), main="Density Plot: wt", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(mtcars$wt), 2)))  # density plot for 'wt'
-polygon(density(mtcars$wt), col="red")
+par(mfrow=c(1, 3))  # divide graph area in 2 columns
+plot(density(iris$Sepal.Length), main="Density Plot: Sepal.L", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(iris$Sepal.Length), 2)))  # density plot for 'Sepal.L'
+polygon(density(iris$Sepal.Length), col="red")
+plot(density(iris$Petal.Length), main="Density Plot: Petal.L", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(iris$Petal.Length), 2)))  # density plot for 'wt'
+polygon(density(iris$Petal.Length), col="red")
+plot(density(iris$Petal.Width), main="Density Plot: Petal.W", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(iris$Petal.Width), 2)))  # density plot for 'wt'
+polygon(density(iris$Petal.Width), col="red")
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/wt_density.png)
+>![graph of the test regression data](../fig/Screenshot from 2026-02-03 11-37-34.png)
 {: .output}
 
 
@@ -156,8 +141,7 @@ polygon(density(mtcars$wt), col="red")
 The Gaussian family is used in this example, which implies that the response variable has a normal distribution. The glm() function yields an object of class “glm” containing model information such as coefficients and deviance.
 
 ~~~
-model <- glm(mpg ~ hp + wt, data = mtcars, family = gaussian)
-summary(model)
+model <- glm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris, family = gaussian)
 ~~~
 {: .language-r}
 
@@ -173,30 +157,31 @@ summary(model)
 
 ~~~
 Call:
-glm(formula = mpg ~ hp + wt, family = gaussian, data = mtcars)
+glm(formula = Sepal.Length ~ Petal.Length + Petal.Width, family = gaussian, 
+    data = iris)
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 37.22727    1.59879  23.285  < 2e-16 ***
-hp          -0.03177    0.00903  -3.519  0.00145 ** 
-wt          -3.87783    0.63273  -6.129 1.12e-06 ***
-
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   4.19058    0.09705  43.181  < 2e-16 ***
+Petal.Length  0.54178    0.06928   7.820 9.41e-13 ***
+Petal.Width  -0.31955    0.16045  -1.992   0.0483 *  
+---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for Gaussian family taken to be 6.725785)
+(Dispersion parameter for gaussian family taken to be 0.1624537)
 
-    Null deviance: 1126.05  on 31  degrees of freedom
-Residual deviance:  195.05  on 29  degrees of freedom
-AIC: 156.65
+    Null deviance: 102.168  on 149  degrees of freedom
+Residual deviance:  23.881  on 147  degrees of freedom
+AIC: 158.05
 
 Number of Fisher Scoring iterations: 2
 ~~~
 {: .output}
 
-A one-unit hp increase predicts a 0.03177 mpg decrease, while wt increase predicts a 3.87783 mpg decrease. Significance: All coefficients (intercept, hp, wt) are statistically significant, ensuring reliability. 
+A one-unit Petal.L increase predicts a 0.54178 Sepal increase, while Petal.W increase predicts a 0.31955 Sepal.L decrease. Significance: All coefficients (intercept, hp, wt) are statistically significant, ensuring reliability. 
 
-* Fit: Low residual deviance (195.05) versus null deviance (1126.05) and AIC (156.65) indicate a well-fitting model. 
-* Dispersion (6.725785) measures mpg variability, essential for assessing prediction precision. Practical: The model aids understanding and prediction of fuel efficiency, valuable for automotive design and environmental considerations.
+* Fit: Low residual deviance (23.881) versus null deviance (102.168) and AIC (158.05) indicate a well-fitting model. 
+* Dispersion (0.1624537) measures Sepal.L variability, essential for assessing prediction precision. 
 
 ## Visualise the model
 
@@ -206,7 +191,7 @@ plot(model, which = 2) # Plot the Q-Q plot of residuals
 ~~~
 {: .language-r}
 
->![graph of the test regression data](../fig/mtcars_plots.png)
+>![graph of the test regression data](../fig/Screenshot from 2026-02-03 11-45-55.png)
 {: .output}
 
 After creating an extended linear model, we must evaluate its fit to the data. This can be accomplished with the help of diagnostic graphs such as the residual plot and the Q-Q plot. The output is shown above.
@@ -223,18 +208,19 @@ We will fit two glm models to the data:
 
 We can now use the anova() function to compare the two models using a likelihood ratio test. 
 ~~~
-simple_model <- glm(mpg ~ hp, data = mtcars, family = gaussian)
-complex_model <- glm(mpg ~ hp + wt, data = mtcars, family = gaussian)
-anova(simple_model, complex_model, test="Chisq")
+simple_model <- glm(Sepal.Length ~ Petal.Length, data = iris, family = gaussian)
+complex_model <- glm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris, family = gaussian)
+model_comparison <-anova(simple_model, complex_model, test="Chisq")
 ~~~
 {: .language-r}
 
 ~~~
-Model 1: mpg ~ hp
-Model 2: mpg ~ hp + wt
-  Resid. Df Resid. Dev Df Deviance Pr(>Chi)    
-1        30     447.67                         
-2        29     195.05  1   252.63 8.86e-10 ***
+Model 1: Sepal.Length ~ Petal.Length
+Model 2: Sepal.Length ~ Petal.Length + Petal.Width
+  Resid. Df Resid. Dev Df Deviance Pr(>Chi)  
+1       148     24.525                       
+2       147     23.881  1  0.64434  0.04642 *
+---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 {: .output}
@@ -248,7 +234,7 @@ print(p_value)
 {: .language-r}
 
 ~~~
-[1] 8.860267e-10
+[1] 0.04641967
 ~~~
 {: .output}
 
