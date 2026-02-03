@@ -18,7 +18,7 @@ keypoints:
 
 # what are GLMs
 
-General Linear Models are a broad class of statistical models used to describe relationships between a dependent variable and one or more independent variables. They extend ordinary linear regression by allowing for different types of dependent variables and error structures.
+Generalised Linear Models are a broad class of statistical models used to describe relationships between a dependent variable and one or more independent variables. They extend ordinary linear regression by allowing for different types of dependent variables and error structures.
 
 ## What are Generalised linear models
 
