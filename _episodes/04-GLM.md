@@ -278,14 +278,14 @@ set.seed(1)
 split = sample.split(iris$Sepal.Length, SplitRatio = 0.75) ## create dataset split
 train = subset(iris, split==TRUE) ## train split
 test = subset(iris, split==FALSE) ## test split
-y<-train$Species; x<-train$Sepal.Length ## use sepal length as features
+y<-train$setosa; x<-train$Sepal.Length ## use sepal length as features
 glfit<-glm(y~x, family = 'binomial')
 summary(glfit)
 
 
 newdata <- data.frame(x=test$Sepal.Length) ## convert data into dataframe
 predicted_val <-predict(glfit, newdata, type="response") ## predict test set
-prediction <-data.frame(test$Sepal.Length, test$Species,predicted_val) ## cast prediction to dataframe
+prediction <-data.frame(test$Sepal.Length, test$setosa,predicted_val) ## cast prediction to dataframe
 prediction
 ~~~
 {: .language-r}
