@@ -62,9 +62,9 @@ Typical use cases
 >![graph of the test regression data](../fig/Genral_to_generalised.png)
 {: .output}
 
-## GLM using mtcars dataset
+## GLM using iris dataset
 
-We will use the “iris” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including mpg, horsepower (hp), and weight. (wt). The response variable will be “mpg,” and the predictor factors will be “hp” and “wt.”
+We will use the “iris” dataset in R to illustrate the use of GLM. This dataset includes data on different car models, including Sepal.L, Petal.L, and Petal.W. The response variable will be “Sepal.L,” and the predictor factors will be “Petal.L” and “Petal.W”
 
 ~~~
 iris
