@@ -265,4 +265,50 @@ glm(y ~ x, family = binomial)
 ~~~
 {: .language-r}
 
+
+##Example of binomial
+
+~~~
+iris$setosa <- ifelse(iris$Species == "setosa", 1, 0)
+
+
+library(caTools)
+
+set.seed(1)
+split = sample.split(iris$Sepal.Length, SplitRatio = 0.75) ## create dataset split
+train = subset(iris, split==TRUE) ## train split
+test = subset(iris, split==FALSE) ## test split
+y<-train$Species; x<-train$Sepal.Length ## use sepal length as features
+glfit<-glm(y~x, family = 'binomial')
+summary(glfit)
+
+
+newdata <- data.frame(x=test$Sepal.Length) ## convert data into dataframe
+predicted_val <-predict(glfit, newdata, type="response") ## predict test set
+prediction <-data.frame(test$Sepal.Length, test$Species,predicted_val) ## cast prediction to dataframe
+prediction
+~~~
+{: .language-r}
+
+~~~
+   test.Sepal.Length test.setosa predicted_val
+1                4.6           1  0.9893396059
+2                5.4           1  0.5193846862
+3                4.6           1  0.9893396059
+4                5.1           1  0.8516276448
+5                5.1           1  0.8516276448
+6                5.4           1  0.5193846862
+7                5.2           1  0.7668856840
+8                4.9           1  0.9458668740
+9                5.5           1  0.3824793248
+10               5.0           1  0.9092110734
+11               4.4           1  0.9964728560
+12               4.8           1  0.9682399616
+13               6.4           0  0.0041167002
+14               5.0           0  0.9092110734
+15               5.8           0  0.1044354907
+
+~~~
+{: .output}
+
 {% include links.md %}
