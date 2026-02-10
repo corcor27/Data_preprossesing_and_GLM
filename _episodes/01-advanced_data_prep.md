@@ -14,6 +14,7 @@ keypoints:
 - "Edit dataframes"
 - "types of data is ready for GLM"
 - "method to test and find the best models"
+- "check"
 ---
 
 ## Dataframes
